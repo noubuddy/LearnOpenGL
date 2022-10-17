@@ -39,6 +39,7 @@ int main()
 		0.0f, -0.5f * float(sqrt(3)) / 3, 0.0f		// Inner down
 	};
 
+	// vertex drawing order
 	constexpr GLuint indices[] =
 	{
 		0, 3, 5,	// Lower left triangle
