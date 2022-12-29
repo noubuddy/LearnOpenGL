@@ -1,27 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\Camera.cpp" />
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\EBO.cpp" />
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\Shader.cpp" />
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\stb.cpp" />
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\Texture.cpp" />
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\VAO.cpp" />
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\VBO.cpp" />
     <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\Camera.h" />
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\EBO.h" />
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\Shader.h" />
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\Texture.h" />
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\VAO.h" />
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\VBO.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Users\anton\source\repos\LearnOpenGL\CMakeLists.txt" />

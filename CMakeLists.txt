@@ -89,49 +89,13 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 include_directories(Libraries/include)
 link_directories(Libraries/lib)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 set(PROJECT_NAME LearnOpenGL)
 
 ################################################################################
 # Source groups
 ################################################################################
 set(no_group_source_files
-    "Camera.cpp"
-    "Camera.h"
-    "EBO.cpp"
-    "EBO.h"
-    "Shader.cpp"
-    "Shader.h"
-    "stb.cpp"
-    "Texture.cpp"
-    "Texture.h"
-    "VAO.cpp"
-    "VAO.h"
-    "VBO.cpp"
-    "VBO.h"
+    ""
 )
 source_group("" FILES ${no_group_source_files})
 
