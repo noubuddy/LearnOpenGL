@@ -2,6 +2,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#define TRI(x, y, z) x, y, z,
+
 const char* vertexShaderSource = "#version 330 core\n"
     "layout (location = 0) in vec3 aPos;\n"
     "void main()\n"
@@ -22,9 +24,9 @@ int main()
     const int height = 1000;
 
     float vertices[] = {
-        -0.5f, -0.5f, 0.0f,
-        0.5f, -0.5f, 0.0f,
-        0.0f, 0.5f, 0.0f
+        TRI(-0.5f, -0.5f, 0.0f)
+        TRI(0.5f, -0.5f, 0.0f)
+        TRI(0.0f, 0.5f, 0.0f)
     };
 
     /*--------------------------------------------INITIALIZATION----------------------------------------------------*/
@@ -53,29 +55,23 @@ int main()
     gladLoadGL();
     // specify the viewport of OpenGl in the window
     glViewport(0, 0, width, height);
-
-    // init vertex buffer object and bind it
-    unsigned int VBO;
-    glGenBuffers(1, &VBO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    std::cout << "Compiling shader..." << std::endl;
+    
+    std::cout << "Compiling shaders..." << std::endl;
     
     // init vertex shader
     unsigned int vertexShader;
     vertexShader = glCreateShader(GL_VERTEX_SHADER);
-
-    // compile vertex shader
+    // specify source for vertex shader
     glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+    // compile vertex shader
     glCompileShader(vertexShader);
 
     // init fragment shader
     unsigned int fragmentShader;
     fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-
-    // compile fragment shader
+    // specify source for fragment shader
     glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+    // compile fragment shader
     glCompileShader(fragmentShader);
 
     // init shader program
@@ -87,11 +83,31 @@ int main()
     glAttachShader(shaderProgram, fragmentShader);
     glLinkProgram(shaderProgram);
 
+    glDeleteShader(vertexShader);
+    glDeleteShader(fragmentShader);
+
     std::cout << "Shader compilation finished!" << std::endl;
 
-    glUseProgram(shaderProgram);
-
+    unsigned int VBO, VAO;
+    glGenBuffers(1, &VBO);
+    glGenVertexArrays(1, &VAO);  
     
+    // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
+    glBindVertexArray(VAO);
+    
+    // copy our vertices array in a buffer for OpenGL to use
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    
+    // then set the vertex attributes pointers
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
+    
+
+    // now draw the object 
     
     /*-----------------------------------------------MAIN LOOP-------------------------------------------------------*/
     // keep the window opened / main loop
@@ -102,16 +118,24 @@ int main()
         // clean the back buffer and assign the new color to it
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        // use our shader program when we want to render an object (draw our first triangle)
+        glUseProgram(shaderProgram);
+        glBindVertexArray(VAO);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+
+        glBindVertexArray(0);
+        
         // swap the back buffer with the front buffer
         glfwSwapBuffers(window);
         // process all the pooled events / make the window responding / take care of all GLFW event
         glfwPollEvents();
     }
 
-    /*--------------------------------------------------TERMINATION--------------------------------------------------*/
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteProgram(shaderProgram);
 
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
+    /*--------------------------------------------------TERMINATION--------------------------------------------------*/
     
     // destroy window before ending the program
     glfwDestroyWindow(window);
