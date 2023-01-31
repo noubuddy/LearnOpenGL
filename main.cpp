@@ -2,6 +2,11 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+/**
+ * @param x x axis
+ * @param y y axis
+ * @param z z axis
+ */
 #define TRI(x, y, z) x, y, z,
 
 const char* vertexShaderSource = "#version 330 core\n"
@@ -105,8 +110,9 @@ int main()
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
-    
 
+    float offset = 0.0001f;
+    
     // now draw the object 
     
     /*-----------------------------------------------MAIN LOOP-------------------------------------------------------*/
@@ -123,6 +129,12 @@ int main()
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 3);
 
+        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+        vertices[0] += offset;
+        
+        glBindBuffer(GL_ARRAY_BUFFER, VBO);
         glBindVertexArray(0);
         
         // swap the back buffer with the front buffer

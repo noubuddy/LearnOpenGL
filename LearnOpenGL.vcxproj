@@ -178,6 +178,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions);_DEBUG;_CONSOLE;_UNICODE;UNICODE</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions);_DEBUG;_CONSOLE;_UNICODE;UNICODE</PreprocessorDefinitions>
     </ClCompile>
+    <ClCompile Include="triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\Users\anton\source\repos\LearnOpenGL\ZERO_CHECK.vcxproj">
@@ -186,6 +187,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="triangle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
