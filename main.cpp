@@ -2,21 +2,9 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "Shader.h"
+
 #define VERT(x, y, z) x, y, z,
-
-const char* vertex_shader_source = "#version 330 core\n"
-    "layout (location = 0) in vec3 aPos;\n"
-    "void main()\n"
-    "{\n"
-    "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-    "}\0";
-
-const char* fragment_shader_source = "#version 330 core\n"
-    "out vec4 FragColor;\n"
-    "void main()\n"
-    "{\n"
-    "    FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-    "} ";
 
 int main()
 {
@@ -58,25 +46,7 @@ int main()
 
     /* Init and compile shaders here */
 
-    unsigned int vertex_shader;
-    vertex_shader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertex_shader, 1, &vertex_shader_source, nullptr);
-    glCompileShader(vertex_shader);
-
-    unsigned int fragment_shader;
-    fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragment_shader, 1, &fragment_shader_source, nullptr);
-    glCompileShader(fragment_shader);
-
-    unsigned int shader_program;
-    shader_program = glCreateProgram();
-
-    glAttachShader(shader_program, vertex_shader);
-    glAttachShader(shader_program, fragment_shader);
-    glLinkProgram(shader_program);
-
-    glDeleteShader(vertex_shader);
-    glDeleteShader(fragment_shader);
+    Shader shader_program("default.vert", "default.frag");
 
     /* Create and configure buffers here */
 
@@ -115,7 +85,7 @@ int main()
         /* Draw calls here */
 
         // 1. specify what shader program we want to use
-        glUseProgram(shader_program);
+        shader_program.Activate();
         // 2. bind vao so opengl knows to use it
         glBindVertexArray(vao);
         // 3. draw triangle

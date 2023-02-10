@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\glad.c">
+    <ClCompile Include="C:\Users\Test_01\source\repos\LearnOpenGL\glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\main.cpp">
+    <ClCompile Include="C:\Users\Test_01\source\repos\LearnOpenGL\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Users\anton\source\repos\LearnOpenGL\CMakeLists.txt" />
+    <CustomBuild Include="C:\Users\Test_01\source\repos\LearnOpenGL\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{0169F372-2D50-35F4-90DE-D7D520B67ECA}</UniqueIdentifier>
+      <UniqueIdentifier>{2AF9F8D4-35CA-3A97-BA98-749030F7CB20}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
