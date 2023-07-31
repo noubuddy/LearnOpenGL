@@ -14,5 +14,6 @@ void main()
 {
     gl_Position = camMatrix * vec4(aPos, 1.0f);
     color = aColor;
-    texCoord = aTex;
+//    texCoord = aTex;
+    texCoord = vec2(aTex.x, 1.0 - aTex.y);
 }

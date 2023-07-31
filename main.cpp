@@ -80,19 +80,19 @@ GLuint indices[] =
 
 GLfloat vertices2[192];
 
-std::vector<glm::vec3> cubePositions
-    = {
-        glm::vec3(1.0f, 1.0f, 0.0f),
-        glm::vec3(2.0f, 1.0f, 0.0f),
-        glm::vec3(3.0f, 1.0f, 0.0f),
-        glm::vec3(4.0f, 1.0f, 0.0f),
-        glm::vec3(5.0f, 1.0f, 0.0f),
-        glm::vec3(1.0f, 1.0f, 1.0f),
-        glm::vec3(2.0f, 1.0f, 1.0f),
-        glm::vec3(3.0f, 1.0f, 1.0f),
-        glm::vec3(4.0f, 1.0f, 1.0f),
-        glm::vec3(5.0f, 1.0f, 1.0f)
-    };
+std::vector<glm::vec3> cubePositions =
+{
+    glm::vec3(1.0f, 1.0f, 0.0f),
+    glm::vec3(2.0f, 1.0f, 0.0f),
+    glm::vec3(3.0f, 1.0f, 0.0f),
+    glm::vec3(4.0f, 1.0f, 0.0f),
+    glm::vec3(5.0f, 1.0f, 0.0f),
+    glm::vec3(1.0f, 1.0f, 1.0f),
+    glm::vec3(2.0f, 1.0f, 1.0f),
+    glm::vec3(3.0f, 1.0f, 1.0f),
+    glm::vec3(4.0f, 1.0f, 1.0f),
+    glm::vec3(5.0f, 1.0f, 1.0f)
+};
 
 enum BlockType
 {
@@ -109,8 +109,8 @@ struct BlockData
 
 int main()
 {
-    const int width = 2560;
-    const int height = 1440;
+    const int width = 1000;
+    const int height = 1000;
 
     std::vector<BlockData> WorldData;
     
@@ -225,17 +225,24 @@ int main()
     vbo1.Unbind();
     ebo1.Unbind();
 
+    // grass_top.TexUnit(shader_program, "topTexture", 0);
+    // grass_top.Bind();
+
     Texture grass_top("block-top.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
-    grass_top.TexUnit(shader_program, "tex0", 0);
+    Texture grass_bottom("water.jpg", GL_TEXTURE_2D, GL_TEXTURE2, GL_RGB, GL_UNSIGNED_BYTE);
+    Texture grass_side("block.jpg", GL_TEXTURE_2D, GL_TEXTURE1, GL_RGB, GL_UNSIGNED_BYTE);
+    // grass_side.TexUnit(shader_program, "sideTexture", 1);
+    //
+    // grass_bottom.TexUnit(shader_program, "bottomTexture", 2);
 
     // Texture grass_side("block.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
     // grass_side.TexUnit(shader_program, "tex1", 0);
 
-    Texture water("water.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
-    water.TexUnit(shader_program, "tex0", 0);
-
-    Texture sand("sand2.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
-    sand.TexUnit(shader_program, "tex0", 0);
+    // Texture water("water.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
+    // water.TexUnit(shader_program, "tex0", 0);
+    //
+    // Texture sand("sand2.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
+    // sand.TexUnit(shader_program, "tex0", 0);
 
     glEnable(GL_DEPTH_TEST);
 
@@ -266,15 +273,27 @@ int main()
         {
             if (block.Type == GRASS)
             {
+                // grass_top.Bind();
+                grass_top.TexUnit(shader_program, "topTexture", 0);
+                grass_bottom.TexUnit(shader_program, "bottomTexture", 1);
+                grass_side.TexUnit(shader_program, "sideTexture", 2);
+
+                glActiveTexture(GL_TEXTURE0);
                 grass_top.Bind();
+                
+                glActiveTexture(GL_TEXTURE1);
+                grass_bottom.Bind();
+
+                glActiveTexture(GL_TEXTURE2);
+                grass_side.Bind();
             }
             else if (block.Type == SAND)
             {
-                sand.Bind();
+                // sand.Bind();
             }
             else if (block.Type == WATER)
             {
-                water.Bind();
+                // water.Bind();
             }
 
             glm::mat4 model = glm::mat4(1.0f);
@@ -318,7 +337,7 @@ int main()
     ebo1.Delete();
 
     grass_top.Delete();
-    water.Delete();
+    // water.Delete();
 
     shader_program.Delete();
     glfwDestroyWindow(window);
